@@ -1,0 +1,83 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.tekever.jaimenejaim.pokemonapp"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    def retrofit2Version = "2.9.0"
+    def okHttpVersion = "3.14.2"
+    def hiltDaggerVersion = "2.31.2-alpha"
+    def navVersion = "2.3.5"
+    def glideVersion = "4.12.0"
+    def lifeCycleVersion = "2.3.1"
+    def pagingVersion = "2.1.2"
+    def kotlinCoreVersion = "1.3.2"
+    def appCompatVersion = "1.2.0"
+    def materialVersion = "1.3.0"
+    def constraintLayoutVersion = "2.0.4"
+    def jUnitVersion = "1.1.2"
+    def espressoCoreVersion = "3.3.0"
+    def legacySupportV4 = "1.0.0"
+    def gsonVersion = "2.8.6"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$kotlinCoreVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation "androidx.test.ext:junit:$jUnitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportV4"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2Version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.google.dagger:hilt-android:$hiltDaggerVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltDaggerVersion"
+    implementation "android.arch.paging:runtime:$pagingVersion"
+    implementation "androidx.paging:paging-rxjava2-ktx:$pagingVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+}
