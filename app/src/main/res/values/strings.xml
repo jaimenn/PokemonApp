@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PokemonApp</string>
     <string name="label_pokemon_list">Pokemons</string>
+    <string name="label_pokemon_detail">Pokemon Detail</string>
+    <string name="button_text_try_again">Try Again</string>
+    <string name="text_view_stats">Stats</string>
+    <string name="text_view_hint">Pokemon name</string>
 </resources>

@@ -10,6 +10,14 @@
         android:name="com.tekever.jaimenejaim.pokemonapp.presentation.ui.main.PokemonMainFragment"
         android:label="@string/label_pokemon_list"
         tools:layout="@layout/pokemon_main_fragment">
+        <action
+            android:id="@+id/action_pokemonMainFragment_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.tekever.jaimenejaim.pokemonapp.presentation.ui.detail.PokemonDetailFragment"
+        android:label="@string/label_pokemon_detail"
+        tools:layout="@layout/pokemon_detail_fragment"/>
 
 </navigation>

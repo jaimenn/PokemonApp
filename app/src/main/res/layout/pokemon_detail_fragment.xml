@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.tekever.jaimenejaim.pokemonapp.domain.entities.PokemonEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/constraint_layout_error_loading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_try_again"
+                android:layout_marginStart="50sp"
+                android:layout_marginEnd="50sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/button_text_try_again"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/constraint_layout_loading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/red"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_success_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/image_view_sprites_other_dream_world"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    tools:ignore="ContentDescription"
+                    loadImageUrl="@{model.sprites.other.officialArtwork.frontDefault}"
+                    tools:src="@drawable/pokeball"
+                    android:scaleType="centerInside"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_sprites_other_dream_world"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginEnd="10sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/text_view_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/text_view_hint"
+                        android:textSize="30sp"
+                        android:text="@{model.name}"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_name"
+                        android:id="@+id/text_view_stats_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_view_stats"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_stats_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/text_view_stats_hp_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HP "/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        app:layout_constraintBottom_toBottomOf="@id/text_view_stats_hp_label"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/text_view_stats_hp_label"
+                        android:id="@+id/seek_bar_stats_hp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="@{model.stats.get(0).baseStat}"
+                        android:progressDrawable="@drawable/seek_bar_shape"
+                        android:splitTrack="false"
+                        android:thumbTint="@color/transparent"
+                        android:layout_marginEnd="30dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_percent_stats_hp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/seek_bar_stats_hp"
+                        app:layout_constraintBottom_toBottomOf="@id/seek_bar_stats_hp"
+                        app:percentToString="@{model.stats.get(0).baseStat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_stats_hp_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/text_view_stats_attack_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ATK"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        app:layout_constraintStart_toEndOf="@+id/text_view_stats_attack_label"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_view_stats_attack_label"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/seek_bar_attack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="@{model.stats.get(1).baseStat}"
+                        android:progressDrawable="@drawable/seek_bar_shape"
+                        android:splitTrack="false"
+                        android:thumbTint="@color/transparent"
+                        android:layout_marginEnd="30dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_percent_stats_attack"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/seek_bar_attack"
+                        app:layout_constraintBottom_toBottomOf="@id/seek_bar_attack"
+                        app:percentToString="@{model.stats.get(1).baseStat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_stats_attack_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/text_view_stats_defense_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DEF"/>
+
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        app:layout_constraintStart_toEndOf="@+id/text_view_stats_defense_label"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_view_stats_defense_label"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/seek_bar_defense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="@{model.stats.get(2).baseStat}"
+                        android:progressDrawable="@drawable/seek_bar_shape"
+                        android:splitTrack="false"
+                        android:thumbTint="@color/transparent"
+                        android:layout_marginEnd="30dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_percent_stats_defense"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/seek_bar_defense"
+                        app:layout_constraintBottom_toBottomOf="@id/seek_bar_defense"
+                        app:percentToString="@{model.stats.get(2).baseStat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_stats_defense_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/text_view_stats_special_attack_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SA  " />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        app:layout_constraintStart_toEndOf="@+id/text_view_stats_special_attack_label"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_view_stats_special_attack_label"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/seek_bar_special_attack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="@{model.stats.get(3).baseStat}"
+                        android:progressDrawable="@drawable/seek_bar_shape"
+                        android:splitTrack="false"
+                        android:thumbTint="@color/transparent"
+                        android:layout_marginEnd="30dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_percent_stats_special_attack"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/seek_bar_special_attack"
+                        app:layout_constraintBottom_toBottomOf="@id/seek_bar_special_attack"
+                        app:percentToString="@{model.stats.get(3).baseStat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_stats_special_attack_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/text_view_stats_special_defense_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SD  "/>
+
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        app:layout_constraintStart_toEndOf="@+id/text_view_stats_special_defense_label"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_view_stats_special_defense_label"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/seek_bar_special_defense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="@{model.stats.get(4).baseStat}"
+                        android:progressDrawable="@drawable/seek_bar_shape"
+                        android:splitTrack="false"
+                        android:thumbTint="@color/transparent"
+                        android:layout_marginEnd="30dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_percent_stats_special_defense"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/seek_bar_special_defense"
+                        app:layout_constraintBottom_toBottomOf="@id/seek_bar_special_defense"
+                        app:percentToString="@{model.stats.get(4).baseStat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_stats_special_defense_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/text_view_stats_speed_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SPD"/>
+
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        app:layout_constraintStart_toEndOf="@+id/text_view_stats_speed_label"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_view_stats_speed_label"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/seek_bar_speed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="@{model.stats.get(5).baseStat}"
+                        android:progressDrawable="@drawable/seek_bar_shape"
+                        android:splitTrack="false"
+                        android:thumbTint="@color/transparent"
+                        android:layout_marginEnd="30dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_view_percent_stats_speed"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/seek_bar_speed"
+                        app:layout_constraintBottom_toBottomOf="@id/seek_bar_speed"
+                        app:percentToString="@{model.stats.get(5).baseStat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

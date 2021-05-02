@@ -3,6 +3,7 @@ package com.tekever.jaimenejaim.pokemonapp.presentation.ui.main
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import com.tekever.jaimenejaim.pokemonapp.presentation.util.BindingFragment
@@ -13,6 +14,10 @@ import com.tekever.jaimenejaim.pokemonapp.presentation.ui.main.adpter.PokemonLis
 
 @AndroidEntryPoint
 class PokemonMainFragment : BindingFragment<PokemonMainFragmentBinding>() {
+
+    companion object {
+        const val POKEMON_NAME_ARG = "pokemonNameArg"
+    }
 
     override fun getLayoutResId() = R.layout.pokemon_main_fragment
 
@@ -29,7 +34,12 @@ class PokemonMainFragment : BindingFragment<PokemonMainFragmentBinding>() {
 
     private fun setupRecyclerView() {
         pokemonListAdapter = PokemonListAdapter { pokemonListEntity ->
-
+            view?.let {
+                val args = Bundle().apply {
+                    putString(POKEMON_NAME_ARG, pokemonListEntity.name)
+                }
+                Navigation.findNavController(it).navigate(R.id.action_pokemonMainFragment_to_pokemonDetailFragment, args)
+            }
         }
 
         linearLayoutManager = LinearLayoutManager(context)
