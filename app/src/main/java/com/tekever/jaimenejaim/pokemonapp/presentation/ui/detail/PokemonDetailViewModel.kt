@@ -7,13 +7,15 @@ import kotlinx.coroutines.launch
 import com.tekever.jaimenejaim.pokemonapp.presentation.util.Resource
 import com.tekever.jaimenejaim.pokemonapp.domain.entities.PokemonEntity
 import com.tekever.jaimenejaim.pokemonapp.domain.usecases.GetPokemonDetailsByNameUseCase
+import com.tekever.jaimenejaim.pokemonapp.domain.usecases.PostPokemonFavoriteUseCase
 import com.tekever.jaimenejaim.pokemonapp.presentation.util.BaseViewModel
 import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    private val useCase: GetPokemonDetailsByNameUseCase) : BaseViewModel() {
+    private val useCase: GetPokemonDetailsByNameUseCase,
+    private val useCasePostPokemon: PostPokemonFavoriteUseCase) : BaseViewModel() {
 
     private val pokemonDetailLiveData = MutableLiveData<Resource<PokemonEntity>>()
 
@@ -31,6 +33,12 @@ class PokemonDetailViewModel @Inject constructor(
                     loading(false)
                 }
             }
+        }
+    }
+
+    fun favoritePokemon(pokemonName: String) {
+        viewModelScope.launch {
+            useCasePostPokemon.postPokemonFavorite(pokemonName)
         }
     }
 

@@ -5,4 +5,5 @@
     <string name="button_text_try_again">Try Again</string>
     <string name="text_view_stats">Stats</string>
     <string name="text_view_hint">Pokemon name</string>
+    <string name="button_text_favorite">Favorite</string>
 </resources>

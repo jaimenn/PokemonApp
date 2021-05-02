@@ -91,13 +91,22 @@
                     android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:id="@+id/text_view_name"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/text_view_hint"
                         android:textSize="30sp"
                         android:text="@{model.name}"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:text="@string/button_text_favorite"
+                        android:id="@+id/button_send_favorite"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_marginTop="10dp"

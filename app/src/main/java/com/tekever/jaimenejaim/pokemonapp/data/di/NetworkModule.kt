@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import com.tekever.jaimenejaim.pokemonapp.data.api.interceptors.InterceptorManager
 import com.tekever.jaimenejaim.pokemonapp.BuildConfig
+import com.tekever.jaimenejaim.pokemonapp.data.api.ApiWebHook
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -33,5 +34,21 @@ object NetworkModule {
                 .build())
         .build()
         .create(Api::class.java)
+
+    @Provides
+    fun providerWebHookRetrofitApi(): ApiWebHook = Retrofit.Builder()
+        .baseUrl(BuildConfig.URL_WEB_HOOK)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(
+            OkHttpClient().newBuilder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(InterceptorManager.interceptor())
+                .addInterceptor(InterceptorManager.httpLoggingInterceptor())
+                .build())
+        .build()
+        .create(ApiWebHook::class.java)
 
 }

@@ -51,6 +51,15 @@ class PokemonDetailFragment : BindingFragment<PokemonDetailFragmentBinding>() {
                 loadPokemonByName(it)
             }
         }
+        binding.buttonSendFavorite.setOnClickListener {
+            favoritePokemon()
+        }
+    }
+
+    private fun favoritePokemon() {
+        pokemonName?.let {
+            viewModel.value.favoritePokemon(it)
+        }
     }
 
     /*

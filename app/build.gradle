@@ -24,9 +24,14 @@ android {
     productFlavors {
         development {
             buildConfigField 'String', 'URL', '"https://pokeapi.co/api/v2/"'
+            buildConfigField 'String', 'URL_WEB_HOOK', '"https://webhook.site/"'
+            buildConfigField 'String', 'WEB_HOOK_KEY', '"1eaca0ba-50a9-4396-bc69-3859e141e750"'
             buildConfigField 'Integer', 'PAGE_SIZE', '40'
         }
         production {
+            buildConfigField 'String', 'URL', '""'
+            buildConfigField 'String', 'URL_WEB_HOOK', '""'
+            buildConfigField 'String', 'WEB_HOOK_KEY', '""'
             buildConfigField 'Integer', 'PAGE_SIZE', '40'
         }
     }
